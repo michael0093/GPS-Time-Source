@@ -1,0 +1,86 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "empty_mspm0l1306_nortos_ticlang (1)",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "empty_mspm0l1306_nortos_ticlang",
+                "resourceId": "/empty_mspm0l1306_nortos_ticlang/Debug/empty_mspm0l1306.o"
+            }
+        },
+        {
+            "name": "empty_mspm0l1306_nortos_ticlang (2)",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "empty_mspm0l1306_nortos_ticlang",
+                "resourceId": "/empty_mspm0l1306_nortos_ticlang/empty_mspm0l1306.c"
+            }
+        },
+        {
+            "name": "i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang",
+                "resourceId": "/i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang/i2c_controller_rw_multibyte_fifo_poll.c"
+            }
+        },
+        {
+            "name": "i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang (1)",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang",
+                "resourceId": "/i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang/Debug/subdir_rules.mk"
+            }
+        },
+        {
+            "name": "i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang (2)",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang",
+                "resourceId": "/i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang/oled.c"
+            }
+        },
+        {
+            "name": "i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang (3)",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang",
+                "resourceId": "/i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang/i2c_controller_rw_multibyte_fifo_poll.syscfg"
+            }
+        },
+        {
+            "name": "i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang (4)",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang",
+                "resourceId": "/i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang/oled.h"
+            }
+        },
+        {
+            "name": "i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang (5)",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang",
+                "resourceId": "/i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang/Debug/ti_msp_dl_config.h"
+            }
+        },
+        {
+            "name": "uart_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang (1)",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "uart_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang",
+                "resourceId": "/uart_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang/uart_rw_multibyte_fifo_poll.syscfg"
+            }
+        }
+    ]
+}
