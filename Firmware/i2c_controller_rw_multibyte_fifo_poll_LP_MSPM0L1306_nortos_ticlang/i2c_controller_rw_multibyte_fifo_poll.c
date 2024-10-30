@@ -44,12 +44,13 @@
 uint8_t rxPacket[UART_RX_SIZE];
 
 enum SystemState {
-    NO_SIGNAL = 0,
-    UNKNOWN = 5,
-    WAITING = 10,
-    LOCKED = 20
+    NO_SIGNAL_INITIAL = 0,
+    NO_SIGNAL = 10,
+    RX_RECEIVED = 20,
+    WAITING = 30,
+    LOCKED = 40
 };
-enum SystemState sys_state = UNKNOWN;
+enum SystemState sys_state = NO_SIGNAL_INITIAL;
 
 int main(void)
 {
@@ -67,6 +68,13 @@ int main(void)
 
     while (1) {
 
+        uint8_t hour_tens;
+        uint8_t hour_ones;
+        uint8_t min_tens;
+        uint8_t min_ones;
+        uint8_t sec_tens;
+        uint8_t sec_ones;
+
         // Wait to receive the UART data
         uint32_t nosignal_timeout = 0;
         while(DL_UART_isRXFIFOEmpty(UART_0_INST) && nosignal_timeout < NO_SIGNAL_TIMEOUT){
@@ -76,21 +84,18 @@ int main(void)
         if(nosignal_timeout >= NO_SIGNAL_TIMEOUT){
             // Looks like nothing on the UART for a few seconds, revert to NO SIGNAL state
             DL_GPIO_clearPins(GPIO_LEDS_PORT, GPIO_LEDS_RED_PIN);   // This will give an invisible low flicker (~3us) but lets our scope check the timing
-            if(sys_state >= WAITING){ // Only do this if we were previously showing the time, otherwise we lose the boot logo & message
-                sys_state = NO_SIGNAL;
-                // Can't have the boot logo + NO SIGNAL screen anymore since that is the RAM init values, but we can have a blank time
-                OLED_clear();
-                OLED_num(10, 32, 8);    // 10=colons so just show an empty time like "  :  :  "
-                OLED_num(10, 80, 8);
-                OLED_write();
+            if(sys_state >= WAITING){   // Only do this if we were previously showing the time, otherwise we lose the boot logo & message
+                sys_state = NO_SIGNAL;  // Can't have the boot logo + NO SIGNAL screen anymore since that is the RAM init values, but we can have a blank time
+            } else {
+                sys_state = NO_SIGNAL_INITIAL;  // Same as NO_SIGNAL but doesn't clear OLED in order to preserve startup screen
             }
         } else {
-            sys_state = UNKNOWN;
+            sys_state = RX_RECEIVED;
         }
         nosignal_timeout = 0;
 
 
-        if(sys_state != NO_SIGNAL) {    // Process the received data
+        if(sys_state == RX_RECEIVED) {    // Process the received data
             memset(rxPacket, 0, UART_RX_SIZE);  // Clear out any oc:\Users\Michael\Desktop\Projects\GPS-Time-Source\MSPM0 Firmware\README.htmlld data
 
             // Receive the UART bytes until either the buffer is full (unlikely) or the transmission stops for a few ms
@@ -117,14 +122,7 @@ int main(void)
             }
 
             char *ptr_utc = strstr(rxPacket, "$PSTMUTC\0");     // Typical string: 
-            uint8_t hour_tens;
-            uint8_t hour_ones;
-            uint8_t min_tens;
-            uint8_t min_ones;
-            uint8_t sec_tens;
-            uint8_t sec_ones;
-
-
+            
             if (ptr_utc != NULL) {
                 ptr_utc += 9;   // advance to first character of interest which is the hours tens
 
@@ -138,50 +136,65 @@ int main(void)
                 for(uint8_t k=0; k<255; k++){   // Search for the asterisk which is the last character before the checksum
                     if(ptr_utc[k] == '*'){
                         if(ptr_utc[k-1] == '1'){    // The final character before the checksum is the GPS time lock status. 0=invalid, 1=from RAM, 2=locked
-                            OLED_clear();
                             sys_state = WAITING;    // GPS is working and attached but not locked to satellites yet. Could take 15-20mins!
-                            OLED_num(10, 32, 8);    // 10=colons so just show an empty time like "  :  :  "
-                            OLED_num(10, 80, 8);
                             break;
 
                         } else if (ptr_utc[k-1] == '2'){    // GPS is locked and the time is valid so use it
-                            OLED_clear();
                             sys_state = LOCKED;
-
-                            OLED_num(hour_tens, 0, 8);
-                            OLED_num(hour_ones, 16, 8);
-                            OLED_num(10, 32, 8);
-                            OLED_num(min_tens, 48, 8);
-                            OLED_num(min_ones, 64, 8);
-                            OLED_num(10, 80, 8);
-                            OLED_num(sec_tens, 96, 8);
-                            OLED_num(sec_ones, 112, 8);
                             break;
 
-                        } else {
-
+                        } else {                    // Value could be '0' which means invalid time
+                            sys_state = NO_SIGNAL;    
+                            break;
                         }
                     }
-                } 
-                OLED_write();   
+                }  
+            } else {
+                sys_state = NO_SIGNAL;      // Received something on the UART but not the expected GPS data
             }
         }
 
         switch (sys_state) {
             default:
-            case NO_SIGNAL:
+            case NO_SIGNAL_INITIAL:     // Same as normal NO_SIGNAL, except the OLED is showing the bootup logo+NO SIGNAL screen which is init RAM so don't want to erase
                 DL_GPIO_clearPins(GPIO_LEDS_PORT, GPIO_LEDS_GREEN_PIN);
                 DL_GPIO_setPins(GPIO_LEDS_PORT, GPIO_LEDS_RED_PIN);
                 break;
 
+            case NO_SIGNAL:             
+                DL_GPIO_clearPins(GPIO_LEDS_PORT, GPIO_LEDS_GREEN_PIN);
+                DL_GPIO_setPins(GPIO_LEDS_PORT, GPIO_LEDS_RED_PIN);
+
+                OLED_clear();
+                OLED_num(10, 32, 8);    // 10=colons so just show an empty time like "  :  :  "
+                OLED_num(10, 80, 8);
+                OLED_write(); 
+                break;
+
             case WAITING:
                 DL_GPIO_setPins(GPIO_LEDS_PORT, GPIO_LEDS_GREEN_PIN | GPIO_LEDS_RED_PIN);
+
+                OLED_clear();
+                OLED_num(10, 32, 8);    // 10=colons so just show an empty time like "  :  :  "
+                OLED_num(10, 80, 8);
+                OLED_write(); 
                 break;
 
             case LOCKED:
                 DL_GPIO_clearPins(GPIO_LEDS_PORT, GPIO_LEDS_RED_PIN);
                 DL_GPIO_setPins(GPIO_LEDS_PORT, GPIO_LEDS_GREEN_PIN);
+
+                OLED_clear();
+                OLED_num(hour_tens, 0, 8);
+                OLED_num(hour_ones, 16, 8);
+                OLED_num(10, 32, 8);
+                OLED_num(min_tens, 48, 8);
+                OLED_num(min_ones, 64, 8);
+                OLED_num(10, 80, 8);
+                OLED_num(sec_tens, 96, 8);
+                OLED_num(sec_ones, 112, 8);
+                OLED_write(); 
                 break;
-        }
+        } 
     }
 }
