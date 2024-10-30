@@ -20,12 +20,12 @@
             }
         },
         {
-            "name": "i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang",
+            "name": "GPS_Time_Source_Monitor",
             "type": "ccs-debug",
             "request": "launch",
             "projectInfo": {
-                "name": "i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang",
-                "resourceId": "/i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang/i2c_controller_rw_multibyte_fifo_poll.c"
+                "name": "GPS_Time_Source_Monitor",
+                "resourceId": "/GPS_Time_Source_Monitor/i2c_controller_rw_multibyte_fifo_poll.c"
             }
         },
         {
@@ -80,6 +80,24 @@
             "projectInfo": {
                 "name": "uart_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang",
                 "resourceId": "/uart_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang/uart_rw_multibyte_fifo_poll.syscfg"
+            }
+        },
+        {
+            "name": "GPS_Time_Source_Monitor (1)",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "GPS_Time_Source_Monitor",
+                "resourceId": "/GPS_Time_Source_Monitor"
+            }
+        },
+        {
+            "name": "GPS_Time_Source_Monitor (2)",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "GPS_Time_Source_Monitor",
+                "resourceId": "/GPS_Time_Source_Monitor/main.c"
             }
         }
     ]
