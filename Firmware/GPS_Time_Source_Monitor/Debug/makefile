@@ -137,7 +137,7 @@ all: $(OBJS) $(GEN_CMDS)
 GPS_Time_Source_Monitor.out: $(OBJS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: Arm Linker'
-	"C:/ti/ccstheia151/ccs/tools/compiler/ti-cgt-armllvm_4.0.0.LTS/bin/tiarmclang.exe" @"device.opt"  -march=thumbv6m -mcpu=cortex-m0plus -mfloat-abi=soft -mlittle-endian -mthumb -O2 -gdwarf-3 -Wl,-m"GPS_Time_Source_Monitor.map" -Wl,-i"C:/ti/mspm0_sdk_2_02_00_05/source" -Wl,-i"C:/Users/michaelc/Documents/Projects/GPS-Time-Source/Firmware/GPS_Time_Source_Monitor" -Wl,-i"C:/Users/michaelc/Documents/Projects/GPS-Time-Source/Firmware/GPS_Time_Source_Monitor/Debug/syscfg" -Wl,-i"C:/ti/ccstheia151/ccs/tools/compiler/ti-cgt-armllvm_4.0.0.LTS/lib" -Wl,--diag_wrap=off -Wl,--display_error_number -Wl,--warn_sections -Wl,--xml_link_info="GPS_Time_Source_Monitor_linkInfo.xml" -Wl,--rom_model -o "GPS_Time_Source_Monitor.out" $(ORDERED_OBJS)
+	"C:/ti/ccstheia151/ccs/tools/compiler/ti-cgt-armllvm_4.0.0.LTS/bin/tiarmclang.exe" @"device.opt"  -march=thumbv6m -mcpu=cortex-m0plus -mfloat-abi=soft -mlittle-endian -mthumb -O2 -gdwarf-3 -Wl,-m"GPS_Time_Source_Monitor.map" -Wl,-i"C:/ti/mspm0_sdk_2_02_00_05/source" -Wl,-i"C:/Users/Michael/Desktop/Projects/GPS-Time-Source/Firmware/GPS_Time_Source_Monitor" -Wl,-i"C:/Users/Michael/Desktop/Projects/GPS-Time-Source/Firmware/GPS_Time_Source_Monitor/Debug/syscfg" -Wl,-i"C:/ti/ccstheia151/ccs/tools/compiler/ti-cgt-armllvm_4.0.0.LTS/lib" -Wl,--diag_wrap=off -Wl,--display_error_number -Wl,--warn_sections -Wl,--xml_link_info="GPS_Time_Source_Monitor_linkInfo.xml" -Wl,--rom_model -o "GPS_Time_Source_Monitor.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 

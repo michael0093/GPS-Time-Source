@@ -101,7 +101,7 @@ int main(void)
             memset(rxPacket, 0, UART_RX_SIZE);  // Clear out any oc:\Users\Michael\Desktop\Projects\GPS-Time-Source\MSPM0 Firmware\README.htmlld data
 
             // Receive the UART bytes until either the buffer is full (unlikely) or the transmission stops for a few ms
-            // LC29T has two bursts every second separated by about 45ms: $PSTMG and then $GNRMC (which is everything else). Since we only care about PSTMUTC which is at the end, 
+            // LC29T has two bursts every second separated by about 45ms: $PSTMTG and then $GNRMC (which is everything else). Since we only care about PSTMUTC which is at the end, 
             // the timeout is short enough that both get handled separately
             uint32_t timeout = 0;
             for (uint16_t i = 0; i < UART_RX_SIZE; i++) {
@@ -150,7 +150,7 @@ int main(void)
                         }
                     }
                 }  
-            } else if ( strstr(rxPacket, "$PSTMG\0") != NULL ) {
+            } else if ( strstr(rxPacket, "$PSTMTG\0") != NULL ) {
                 sys_state = RX_PSTMG;       // Received the first data burst from the module, the next one should contain PSTMUTC
             } else {
                 sys_state = NO_SIGNAL;      // Received something on the UART but not the expected GPS data
