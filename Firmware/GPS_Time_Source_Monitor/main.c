@@ -40,7 +40,7 @@
 
 // Data received from UART
 #define UART_RX_SIZE        2048        // Typical is around 1800 characters
-#define NO_RX_DATA_TIMEOUT  400000      // 400000=110ms measured, u16 max. CPU ticks of no UART data within the receive code, before assuming that the GPS module has finished transmitting to us. Max gaps in TX measured for LC29T = 
+#define NO_RX_DATA_TIMEOUT  4000        // 400000=110ms measured, u16 max. CPU ticks of no UART data within the receive code, before assuming that the GPS module has finished transmitting to us. Max gaps in TX measured for LC29T = 
 #define NO_SIGNAL_TIMEOUT   1500000     // 1500000=3.4s measured, u32 max. CPU ticks of no UART data at all before assuming that there is no GPS module connected. Should receive every second so the timeout should be 2s or so. 
 
 uint8_t rxPacket[UART_RX_SIZE];
@@ -49,8 +49,9 @@ enum SystemState {
     NO_SIGNAL_INITIAL = 0,
     NO_SIGNAL = 10,
     RX_RECEIVED = 20,
-    WAITING = 30,
-    LOCKED = 40
+    RX_PSTMG = 30,
+    WAITING = 40,
+    LOCKED = 50
 };
 enum SystemState sys_state = NO_SIGNAL_INITIAL;
 
@@ -84,7 +85,7 @@ int main(void)
         
         if(nosignal_timeout >= NO_SIGNAL_TIMEOUT){
             // Looks like nothing on the UART for a few seconds, revert to NO SIGNAL state
-            DL_GPIO_clearPins(GPIO_LEDS_PORT, GPIO_LEDS_RED_PIN);   // This will give an invisible low flicker (~3us) but lets our scope check the timing
+            // DL_GPIO_clearPins(GPIO_LEDS_PORT, GPIO_LEDS_RED_PIN);   // This will give an invisible low flicker (~3us) but lets our scope check the timing
             if(sys_state > NO_SIGNAL){      // Only do this if we were previously showing the time, otherwise we lose the boot logo & message
                 sys_state = NO_SIGNAL;      // Can't have the boot logo + NO SIGNAL screen anymore since that is the RAM init values, but we can have a blank time
             } else {
@@ -101,18 +102,16 @@ int main(void)
 
             // Receive the UART bytes until either the buffer is full (unlikely) or the transmission stops for a few ms
             // LC29T has two bursts every second separated by about 45ms: $PSTMG and then $GNRMC (which is everything else). Since we only care about PSTMUTC which is at the end, 
-            // the timeout is short enough that actaully the first data burst is discarded
+            // the timeout is short enough that both get handled separately
             uint32_t timeout = 0;
             for (uint16_t i = 0; i < UART_RX_SIZE; i++) {
-                DL_GPIO_setPins(GPIO_LEDS_PORT, GPIO_LEDS_BLUE_PIN);     // BLUE LED means data is being received
+               DL_GPIO_clearPins(GPIO_LEDS_PORT, GPIO_LEDS_RED_PIN | GPIO_LEDS_GREEN_PIN);  // Dip out the LED to show that data was received
 
                 DL_GPIO_setPins(GEN_PORT, GEN_OUT_PIN);
-                while(DL_UART_isRXFIFOEmpty(UART_0_INST) && timeout < NO_RX_DATA_TIMEOUT){
+                while(DL_UART_isRXFIFOEmpty(UART_0_INST) && timeout < NO_RX_DATA_TIMEOUT) {
                     timeout++;
                 }
                 DL_GPIO_clearPins(GEN_PORT, GEN_OUT_PIN);
-
-                DL_GPIO_clearPins(GPIO_LEDS_PORT, GPIO_LEDS_BLUE_PIN);
 
                 if(timeout >= NO_RX_DATA_TIMEOUT){
                     // If there has been no new data for a few ms then assume that the transmission has finished
@@ -123,9 +122,9 @@ int main(void)
                 timeout = 0;
             }
 
-            char *ptr_utc = strstr(rxPacket, "$PSTMUTC\0");     // Typical string: 
+            char *ptr_utc = strstr(rxPacket, "$PSTMUTC\0");     // Typical (locked) string: $PSTMUTC,101517.000,28102024,1414145717,18,2*5C
             
-            if (ptr_utc != NULL) {
+            if ( ptr_utc != NULL ) {
                 ptr_utc += 9;   // advance to first character of interest which is the hours tens
 
                 hour_tens = ptr_utc[0] - 48;    // Collect all the UTC time string characters and shift down 0-9 since our character set starts at 0='0'
@@ -151,12 +150,14 @@ int main(void)
                         }
                     }
                 }  
+            } else if ( strstr(rxPacket, "$PSTMG\0") != NULL ) {
+                sys_state = RX_PSTMG;       // Received the first data burst from the module, the next one should contain PSTMUTC
             } else {
                 sys_state = NO_SIGNAL;      // Received something on the UART but not the expected GPS data
             }
         }
 
-        switch (sys_state) {
+        switch ( sys_state ) {
             default:
             case NO_SIGNAL_INITIAL:     // Same as normal NO_SIGNAL, except the OLED is showing the bootup logo+NO SIGNAL screen which is init RAM so don't want to erase
                 DL_GPIO_clearPins(GPIO_LEDS_PORT, GPIO_LEDS_GREEN_PIN);
@@ -171,6 +172,11 @@ int main(void)
                 OLED_num(10, 32, 8);    // 10=colons so just show an empty time like "  :  :  "
                 OLED_num(10, 80, 8);
                 OLED_write(); 
+                break;
+
+            case RX_RECEIVED:
+            case RX_PSTMG:
+                // Mid-process for RX data handling so don't do anything
                 break;
 
             case WAITING:
