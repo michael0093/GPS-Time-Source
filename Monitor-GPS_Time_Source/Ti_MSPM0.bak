@@ -14,7 +14,7 @@
 				)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "MSPM0C1105"
 			(at -12.446 14.478 0)
 			(effects
 				(font
@@ -22,8 +22,8 @@
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at -12.446 14.478 0)
+		(property "Footprint" "Package_SO:TSSOP-20_4.4x5mm_P0.5mm"
+			(at -2.032 -10.922 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -40,8 +40,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at -12.446 14.478 0)
+		(property "Description" "MSPM0 ARM Microcontroller 32MHz"
+			(at -3.048 -8.128 0)
 			(effects
 				(font
 					(size 1.27 1.27)
