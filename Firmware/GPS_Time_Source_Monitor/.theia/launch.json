@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "GPS_Time_Source_Monitor",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "GPS_Time_Source_Monitor",
+                "resourceId": "/GPS_Time_Source_Monitor"
+            }
+        }
+    ]
+}

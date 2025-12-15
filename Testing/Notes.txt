@@ -1,0 +1,10 @@
+DG1022Z measured directly using BNC cable without termination
+LC29T measured using 10x probe. Output does not vary after GPS lock
+
+Test DGT1022Z output with internal vs external source, generating 5MHz square: no observable difference on scope, no change to jitter which is well below 1ns.
+
+Using NIX4 as the measurement reference on the DG1022Z
+Internal = 32.767922  = -2.38ppm
+External = 32.767907  = -2.84ppm  (delta 0.46ppm)
+Internal = 32.7679237 = -2.328ppm
+External = 32.7679063 = -2.859ppm (delta 0.531ppm)

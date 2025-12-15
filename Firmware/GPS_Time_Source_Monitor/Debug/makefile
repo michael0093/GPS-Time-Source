@@ -2,16 +2,14 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-SHELL = cmd.exe
-
-CG_TOOL_ROOT := C:/ti/ccstheia151/ccs/tools/compiler/ti-cgt-armllvm_4.0.0.LTS
+CG_TOOL_ROOT := /home/michael/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS
 
 GEN_OPTS__FLAG := @"./device.opt" 
 GEN_CMDS__FLAG := -Wl,-l"./device_linker.cmd" 
 
 ORDERED_OBJS += \
 "./ti_msp_dl_config.o" \
-"./startup_mspm0l130x_ticlang.o" \
+"./startup_mspm0l110x_ticlang.o" \
 "./main.o" \
 "./oled.o" \
 $(GEN_CMDS__FLAG) \
@@ -20,8 +18,8 @@ $(GEN_CMDS__FLAG) \
 
 -include ../makefile.init
 
-RM := DEL /F
-RMDIR := RMDIR /S/Q
+RM := rm -rf
+RMDIR := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -66,9 +64,6 @@ endif
 ifneq ($(strip $(S64_DEPS)),)
 -include $(S64_DEPS)
 endif
-ifneq ($(strip $(INO_DEPS)),)
--include $(INO_DEPS)
-endif
 ifneq ($(strip $(CLA_DEPS)),)
 -include $(CLA_DEPS)
 endif
@@ -83,9 +78,6 @@ ifneq ($(strip $(C62_DEPS)),)
 endif
 ifneq ($(strip $(C67_DEPS)),)
 -include $(C67_DEPS)
-endif
-ifneq ($(strip $(PDE_DEPS)),)
--include $(PDE_DEPS)
 endif
 ifneq ($(strip $(K_DEPS)),)
 -include $(K_DEPS)
@@ -137,15 +129,15 @@ all: $(OBJS) $(GEN_CMDS)
 GPS_Time_Source_Monitor.out: $(OBJS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: Arm Linker'
-	"C:/ti/ccstheia151/ccs/tools/compiler/ti-cgt-armllvm_4.0.0.LTS/bin/tiarmclang.exe" @"device.opt"  -march=thumbv6m -mcpu=cortex-m0plus -mfloat-abi=soft -mlittle-endian -mthumb -O2 -gdwarf-3 -Wl,-m"GPS_Time_Source_Monitor.map" -Wl,-i"C:/ti/mspm0_sdk_2_02_00_05/source" -Wl,-i"C:/Users/Michael/Desktop/Projects/GPS-Time-Source/Firmware/GPS_Time_Source_Monitor" -Wl,-i"C:/Users/Michael/Desktop/Projects/GPS-Time-Source/Firmware/GPS_Time_Source_Monitor/Debug/syscfg" -Wl,-i"C:/ti/ccstheia151/ccs/tools/compiler/ti-cgt-armllvm_4.0.0.LTS/lib" -Wl,--diag_wrap=off -Wl,--display_error_number -Wl,--warn_sections -Wl,--xml_link_info="GPS_Time_Source_Monitor_linkInfo.xml" -Wl,--rom_model -o "GPS_Time_Source_Monitor.out" $(ORDERED_OBJS)
+	"/home/michael/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/bin/tiarmclang" @"device.opt"  -march=thumbv6m -mcpu=cortex-m0plus -mfloat-abi=soft -mlittle-endian -mthumb -O2 -gdwarf-3 -Wl,-m"GPS_Time_Source_Monitor.map" -Wl,-i"/home/michael/ti/mspm0_sdk_2_08_00_04/source" -Wl,-i"/home/michael/Documents/Projects/GPS-Time-Source/Firmware/GPS_Time_Source_Monitor" -Wl,-i"/home/michael/Documents/Projects/GPS-Time-Source/Firmware/GPS_Time_Source_Monitor/Debug/syscfg" -Wl,-i"/home/michael/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib" -Wl,--diag_wrap=off -Wl,--display_error_number -Wl,--warn_sections -Wl,--xml_link_info="GPS_Time_Source_Monitor_linkInfo.xml" -Wl,--rom_model -o "GPS_Time_Source_Monitor.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "ti_msp_dl_config.o" "startup_mspm0l130x_ticlang.o" "main.o" "oled.o" 
-	-$(RM) "ti_msp_dl_config.d" "startup_mspm0l130x_ticlang.d" "main.d" "oled.d" 
+	-$(RM) "ti_msp_dl_config.o" "startup_mspm0l110x_ticlang.o" "main.o" "oled.o" 
+	-$(RM) "ti_msp_dl_config.d" "startup_mspm0l110x_ticlang.d" "main.d" "oled.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

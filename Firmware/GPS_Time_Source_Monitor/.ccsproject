@@ -9,7 +9,7 @@
 	<ignoreDefaultDeviceSettings value="true"/>
 	<ignoreDefaultCCSSettings value="true"/>
 	<templateProperties value="id=i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang.projectspec.i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang,buildProfile=release,isHybrid=true"/>
-	<activeTargetConfiguration value="targetConfigs/MSPM0L1306.ccxml"/>
+	<activeTargetConfiguration value="targetConfigs/MSPM0L1105.ccxml"/>
 	<isTargetConfigurationManual value="false"/>
 	<sourceLookupPath value="${COM_TI_MSPM0_SDK_INSTALL_DIR}/source/ti/driverlib"/>
 	<origin value="C:\ti\mspm0_sdk_2_02_00_05\examples\nortos\LP_MSPM0L1306\driverlib\i2c_controller_rw_multibyte_fifo_poll\ticlang\i2c_controller_rw_multibyte_fifo_poll_LP_MSPM0L1306_nortos_ticlang.projectspec"/>

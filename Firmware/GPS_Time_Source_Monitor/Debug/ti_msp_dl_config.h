@@ -34,14 +34,14 @@
  *  ============ ti_msp_dl_config.h =============
  *  Configured MSPM0 DriverLib module declarations
  *
- *  DO NOT EDIT - This file is generated for the MSPM0L130X
+ *  DO NOT EDIT - This file is generated for the MSPM0L110X
  *  by the SysConfig tool.
  */
 #ifndef ti_msp_dl_config_h
 #define ti_msp_dl_config_h
 
-#define CONFIG_MSPM0L130X
-#define CONFIG_MSPM0L1306
+#define CONFIG_MSPM0L110X
+#define CONFIG_MSPM0L1105
 
 #if defined(__ti_version__) || defined(__TI_COMPILER_VERSION__)
 #define SYSCONFIG_WEAK __attribute__((weak))
@@ -101,12 +101,12 @@ extern "C" {
 #define UART_0_INST_INT_IRQN                                      UART0_INT_IRQn
 #define GPIO_UART_0_RX_PORT                                                GPIOA
 #define GPIO_UART_0_TX_PORT                                                GPIOA
-#define GPIO_UART_0_RX_PIN                                         DL_GPIO_PIN_9
-#define GPIO_UART_0_TX_PIN                                         DL_GPIO_PIN_8
-#define GPIO_UART_0_IOMUX_RX                                     (IOMUX_PINCM10)
-#define GPIO_UART_0_IOMUX_TX                                      (IOMUX_PINCM9)
-#define GPIO_UART_0_IOMUX_RX_FUNC                      IOMUX_PINCM10_PF_UART0_RX
-#define GPIO_UART_0_IOMUX_TX_FUNC                       IOMUX_PINCM9_PF_UART0_TX
+#define GPIO_UART_0_RX_PIN                                        DL_GPIO_PIN_18
+#define GPIO_UART_0_TX_PIN                                        DL_GPIO_PIN_17
+#define GPIO_UART_0_IOMUX_RX                                     (IOMUX_PINCM19)
+#define GPIO_UART_0_IOMUX_TX                                     (IOMUX_PINCM18)
+#define GPIO_UART_0_IOMUX_RX_FUNC                      IOMUX_PINCM19_PF_UART0_RX
+#define GPIO_UART_0_IOMUX_TX_FUNC                      IOMUX_PINCM18_PF_UART0_TX
 #define UART_0_BAUD_RATE                                                (115200)
 #define UART_0_IBRD_32_MHZ_115200_BAUD                                      (17)
 #define UART_0_FBRD_32_MHZ_115200_BAUD                                      (23)
@@ -115,24 +115,16 @@ extern "C" {
 
 
 
-/* Port definition for Pin Group GEN */
-#define GEN_PORT                                                         (GPIOA)
-
-/* Defines for OUT: GPIOA.3 with pinCMx 4 on package pin 7 */
-#define GEN_OUT_PIN                                              (DL_GPIO_PIN_3)
-#define GEN_OUT_IOMUX                                             (IOMUX_PINCM4)
 /* Port definition for Pin Group GPIO_LEDS */
 #define GPIO_LEDS_PORT                                                   (GPIOA)
 
-/* Defines for GREEN: GPIOA.13 with pinCMx 14 on package pin 17 */
-#define GPIO_LEDS_GREEN_PIN                                     (DL_GPIO_PIN_13)
-#define GPIO_LEDS_GREEN_IOMUX                                    (IOMUX_PINCM14)
-/* Defines for RED: GPIOA.26 with pinCMx 27 on package pin 30 */
-#define GPIO_LEDS_RED_PIN                                       (DL_GPIO_PIN_26)
-#define GPIO_LEDS_RED_IOMUX                                      (IOMUX_PINCM27)
-/* Defines for BLUE: GPIOA.27 with pinCMx 28 on package pin 31 */
-#define GPIO_LEDS_BLUE_PIN                                      (DL_GPIO_PIN_27)
-#define GPIO_LEDS_BLUE_IOMUX                                     (IOMUX_PINCM28)
+/* Defines for GREEN: GPIOA.6 with pinCMx 7 on package pin 10 */
+#define GPIO_LEDS_GREEN_PIN                                      (DL_GPIO_PIN_6)
+#define GPIO_LEDS_GREEN_IOMUX                                     (IOMUX_PINCM7)
+/* Defines for RED: GPIOA.11 with pinCMx 12 on package pin 11 */
+#define GPIO_LEDS_RED_PIN                                       (DL_GPIO_PIN_11)
+#define GPIO_LEDS_RED_IOMUX                                      (IOMUX_PINCM12)
+
 
 /* clang-format on */
 

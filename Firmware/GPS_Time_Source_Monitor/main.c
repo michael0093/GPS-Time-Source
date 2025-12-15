@@ -107,11 +107,11 @@ int main(void)
             for (uint16_t i = 0; i < UART_RX_SIZE; i++) {
                DL_GPIO_clearPins(GPIO_LEDS_PORT, GPIO_LEDS_RED_PIN | GPIO_LEDS_GREEN_PIN);  // Dip out the LED to show that data was received
 
-                DL_GPIO_setPins(GEN_PORT, GEN_OUT_PIN);
+                // DL_GPIO_setPins(GEN_PORT, GEN_OUT_PIN);
                 while(DL_UART_isRXFIFOEmpty(UART_0_INST) && timeout < NO_RX_DATA_TIMEOUT) {
                     timeout++;
                 }
-                DL_GPIO_clearPins(GEN_PORT, GEN_OUT_PIN);
+                // DL_GPIO_clearPins(GEN_PORT, GEN_OUT_PIN);
 
                 if(timeout >= NO_RX_DATA_TIMEOUT){
                     // If there has been no new data for a few ms then assume that the transmission has finished

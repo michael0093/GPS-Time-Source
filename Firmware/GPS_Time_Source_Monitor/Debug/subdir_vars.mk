@@ -2,15 +2,13 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-SHELL = cmd.exe
-
 # Add inputs and outputs from these tool invocations to the build variables 
 SYSCFG_SRCS += \
 ../GPS_Time_Source_Monitor.syscfg 
 
 C_SRCS += \
 ./ti_msp_dl_config.c \
-C:/ti/mspm0_sdk_2_02_00_05/source/ti/devices/msp/m0p/startup_system_files/ticlang/startup_mspm0l130x_ticlang.c \
+/home/michael/ti/mspm0_sdk_2_08_00_04/source/ti/devices/msp/m0p/startup_system_files/ticlang/startup_mspm0l110x_ticlang.c \
 ../main.c \
 ../oled.c 
 
@@ -24,7 +22,7 @@ GEN_FILES += \
 
 C_DEPS += \
 ./ti_msp_dl_config.d \
-./startup_mspm0l130x_ticlang.d \
+./startup_mspm0l110x_ticlang.d \
 ./main.d \
 ./oled.d 
 
@@ -33,7 +31,7 @@ GEN_OPTS += \
 
 OBJS += \
 ./ti_msp_dl_config.o \
-./startup_mspm0l130x_ticlang.o \
+./startup_mspm0l110x_ticlang.o \
 ./main.o \
 ./oled.o 
 
@@ -44,7 +42,7 @@ GEN_MISC_FILES += \
 
 OBJS__QUOTED += \
 "ti_msp_dl_config.o" \
-"startup_mspm0l130x_ticlang.o" \
+"startup_mspm0l110x_ticlang.o" \
 "main.o" \
 "oled.o" 
 
@@ -55,7 +53,7 @@ GEN_MISC_FILES__QUOTED += \
 
 C_DEPS__QUOTED += \
 "ti_msp_dl_config.d" \
-"startup_mspm0l130x_ticlang.d" \
+"startup_mspm0l110x_ticlang.d" \
 "main.d" \
 "oled.d" 
 
@@ -69,6 +67,6 @@ SYSCFG_SRCS__QUOTED += \
 
 C_SRCS__QUOTED += \
 "./ti_msp_dl_config.c" \
-"C:/ti/mspm0_sdk_2_02_00_05/source/ti/devices/msp/m0p/startup_system_files/ticlang/startup_mspm0l130x_ticlang.c" 
+"/home/michael/ti/mspm0_sdk_2_08_00_04/source/ti/devices/msp/m0p/startup_system_files/ticlang/startup_mspm0l110x_ticlang.c" 
 
 

@@ -34,7 +34,7 @@
  *  ============ ti_msp_dl_config.c =============
  *  Configured MSPM0 DriverLib module definitions
  *
- *  DO NOT EDIT - This file is generated for the MSPM0L130X
+ *  DO NOT EDIT - This file is generated for the MSPM0L110X
  *  by the SysConfig tool.
  */
 
@@ -70,11 +70,9 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 {
     const uint8_t unusedPinIndexes[] =
     {
-        IOMUX_PINCM3, IOMUX_PINCM5, IOMUX_PINCM6, IOMUX_PINCM7,
-        IOMUX_PINCM8, IOMUX_PINCM11, IOMUX_PINCM12, IOMUX_PINCM13,
-        IOMUX_PINCM15, IOMUX_PINCM16, IOMUX_PINCM17, IOMUX_PINCM18,
-        IOMUX_PINCM19, IOMUX_PINCM22, IOMUX_PINCM23, IOMUX_PINCM24,
-        IOMUX_PINCM25, IOMUX_PINCM26
+        IOMUX_PINCM27, IOMUX_PINCM28, IOMUX_PINCM3, IOMUX_PINCM5,
+        IOMUX_PINCM17, IOMUX_PINCM23, IOMUX_PINCM24, IOMUX_PINCM25,
+        IOMUX_PINCM26
     };
 
     for(int i = 0; i < sizeof(unusedPinIndexes)/sizeof(unusedPinIndexes[0]); i++)
@@ -83,17 +81,13 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
     }
 
     DL_GPIO_clearPins(GPIOA,
-        (DL_GPIO_PIN_2 | DL_GPIO_PIN_4 | DL_GPIO_PIN_5 | DL_GPIO_PIN_6 |
-        DL_GPIO_PIN_7 | DL_GPIO_PIN_10 | DL_GPIO_PIN_11 | DL_GPIO_PIN_12 |
-        DL_GPIO_PIN_14 | DL_GPIO_PIN_15 | DL_GPIO_PIN_16 | DL_GPIO_PIN_17 |
-        DL_GPIO_PIN_18 | DL_GPIO_PIN_21 | DL_GPIO_PIN_22 | DL_GPIO_PIN_23 |
-        DL_GPIO_PIN_24 | DL_GPIO_PIN_25));
+        (DL_GPIO_PIN_26 | DL_GPIO_PIN_27 | DL_GPIO_PIN_2 | DL_GPIO_PIN_4 |
+        DL_GPIO_PIN_16 | DL_GPIO_PIN_22 | DL_GPIO_PIN_23 | DL_GPIO_PIN_24 |
+        DL_GPIO_PIN_25));
     DL_GPIO_enableOutput(GPIOA,
-        (DL_GPIO_PIN_2 | DL_GPIO_PIN_4 | DL_GPIO_PIN_5 | DL_GPIO_PIN_6 |
-        DL_GPIO_PIN_7 | DL_GPIO_PIN_10 | DL_GPIO_PIN_11 | DL_GPIO_PIN_12 |
-        DL_GPIO_PIN_14 | DL_GPIO_PIN_15 | DL_GPIO_PIN_16 | DL_GPIO_PIN_17 |
-        DL_GPIO_PIN_18 | DL_GPIO_PIN_21 | DL_GPIO_PIN_22 | DL_GPIO_PIN_23 |
-        DL_GPIO_PIN_24 | DL_GPIO_PIN_25));
+        (DL_GPIO_PIN_26 | DL_GPIO_PIN_27 | DL_GPIO_PIN_2 | DL_GPIO_PIN_4 |
+        DL_GPIO_PIN_16 | DL_GPIO_PIN_22 | DL_GPIO_PIN_23 | DL_GPIO_PIN_24 |
+        DL_GPIO_PIN_25));
 
     DL_GPIO_initPeripheralInputFunctionFeatures(GPIO_I2C_IOMUX_SDA,
         GPIO_I2C_IOMUX_SDA_FUNC, DL_GPIO_INVERSION_DISABLE,
@@ -114,22 +108,14 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_PULL_UP,
 		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
 
-    DL_GPIO_initDigitalOutput(GEN_OUT_IOMUX);
-
     DL_GPIO_initDigitalOutput(GPIO_LEDS_GREEN_IOMUX);
 
     DL_GPIO_initDigitalOutput(GPIO_LEDS_RED_IOMUX);
 
-    DL_GPIO_initDigitalOutput(GPIO_LEDS_BLUE_IOMUX);
-
-    DL_GPIO_clearPins(GPIOA, GEN_OUT_PIN |
-		GPIO_LEDS_GREEN_PIN |
-		GPIO_LEDS_RED_PIN |
-		GPIO_LEDS_BLUE_PIN);
-    DL_GPIO_enableOutput(GPIOA, GEN_OUT_PIN |
-		GPIO_LEDS_GREEN_PIN |
-		GPIO_LEDS_RED_PIN |
-		GPIO_LEDS_BLUE_PIN);
+    DL_GPIO_clearPins(GPIO_LEDS_PORT, GPIO_LEDS_GREEN_PIN |
+		GPIO_LEDS_RED_PIN);
+    DL_GPIO_enableOutput(GPIO_LEDS_PORT, GPIO_LEDS_GREEN_PIN |
+		GPIO_LEDS_RED_PIN);
 
 }
 
@@ -140,6 +126,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_SYSCTL_init(void)
 
 	//Low Power Mode is configured to be SLEEP0
     DL_SYSCTL_setBORThreshold(DL_SYSCTL_BOR_THRESHOLD_LEVEL_0);
+    DL_SYSCTL_disableNRSTPin();
 
     
 	DL_SYSCTL_setSYSOSCFreq(DL_SYSCTL_SYSOSC_FREQ_BASE);
@@ -172,7 +159,6 @@ SYSCONFIG_WEAK void SYSCFG_DL_I2C_init(void) {
 
 
 }
-
 
 static const DL_UART_Main_ClockConfig gUART_0ClockConfig = {
     .clockSel    = DL_UART_MAIN_CLOCK_BUSCLK,
