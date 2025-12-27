@@ -1,0 +1,17 @@
+Power consumption @ 5.2V single USB:
+ Powered, module OFF = <0.01A avg
+ Powered, module ON  = 0.23A avg
+ 
+UART TX coming out of PIN20, PIN6 looks like the same data. String search for $PSTMUTC, .....
+
+10MHz jitter 4ns or so. 
+Couldnt see a difference between before and after UTC fix on the freq ctr.
+
+With excellent antenna placement, resuming with VBAK = 5,8,21,20,>19 25min or so??? no idea why so long now..
+Resuming from cold = 19 min
+
+Would want a clock distribution PCB that has external SMA and a small patch lead
+Use MSPM0 to read UTC code and tell if it has a fix or not, since module has no other diagnostic outputs
+
+LC29T vs Keysight 53220A: LC29 reads -2.1ppb. Verified against TTI counter which reads 1.2ppm high on both LC29 and Keysight outputs.
+LC29T vs Rigol DG1062Z: reads avg 10.0000056315MHz so DG1062Z is 0.563ppm high
